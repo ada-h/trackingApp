@@ -21,7 +21,7 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: rgb(243, 219, 219);
 }
 
 .App-link {
@@ -35,4 +35,32 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.t-center{
+  text-align: center !important;
+}
+
+.error{
+  font-weight: bold;
+  color: #F5AB35;
+  text-align: center;
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.red{
+  color: red
+}
+
+.t-12{
+  font-size: 12px;
 }

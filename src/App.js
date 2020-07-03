@@ -1,25 +1,39 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+
+
+import Home from './home'
+import About from './about'
+import Tracking from './tracking'
+import Quote from './quote'
+import Shipping from './shipment'
+import Dashboard from './dashboard'
+
+
+import ReduxThunk from 'redux-thunk'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
+
+
+import combineReducers from './redux/reducers'
+
+const store = createStore(combineReducers, {}, applyMiddleware(ReduxThunk))
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path='/' component={Home}></Route>
+          <Route exact path='/about' component={About}></Route>
+          <Route exact path='/tracking' component={Tracking}></Route>
+          <Route exact path='/quote' component={Quote}></Route>
+          <Route exact path='/dashboard' component={Dashboard}></Route>
+          <Route exact path = '/create shipping' component={Shipping}></Route>
+        </Switch>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
