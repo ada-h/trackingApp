@@ -42,13 +42,13 @@ class ShipmentDetail extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group wow fadeInUp" data-wow-offset={50} data-wow-delay=".20s">
+                                {/* <div className="form-group wow fadeInUp" data-wow-offset={50} data-wow-delay=".20s">
                                     <div className="col-sm-3"> <label className="title-2"> Container No: </label></div>
                                     <div className="col-sm-9"> <input data-bind="in:value, f: float" value={containerNo}
                                         onChange={(e) => this.props.getFormDetails({ props: ['contaainerNo'], value: e.target.value })}
                                         data-name="width" type="text" placeholder className="form-control" />
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="form-group wow fadeInUp" data-wow-offset={50} data-wow-delay=".20s">
                                     <div className="col-sm-3"> <label className="title-2"> Length(cm): </label></div>
                                     <div className="col-sm-9"> <input data-bind="in:value, f: float" data-name="depth"

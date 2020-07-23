@@ -8,7 +8,8 @@ import Clients from './clients'
 import Auth from '../auth';
 import SmallBanner from './smallBanner'
 import {connect} from 'react-redux'
-import {getFormDetails} from '../redux/actions'
+import {getFormDetails, trackProducts} from '../redux/actions'
+import {Link} from "react-router-dom"
 
 class index extends Component {
 
@@ -17,7 +18,7 @@ class index extends Component {
         setTimeout(this.props.getFormDetails({ props: ['load'], value: 1 }), 1000);
     }
     render() {
-        const {load} = this.props
+        const {load,  trackingNo} = this.props
         return (
             <div>
                 { load == 0 ? <PreLoader/> : '' }
@@ -57,18 +58,24 @@ class index extends Component {
                             <div className="theme-container container">
                                 <div className="row">
                                     <div className="col-md-8 col-md-offset-2 track-prod clrbg-before wow slideInUp" data-wow-offset={50} data-wow-delay=".20s">
-                                        <h2 className="title-1"> track your product </h2> <span className="font2-light fs-12">Now you can track your product easily</span>
+                                        <h2 className="title-1"> track your product 
+                                        </h2> <span className="font2-light fs-12">Now you can track your product easily</span>
                                         <div className="row">
                                             <form className>
                                                 <div className="col-md-7 col-sm-7">
                                                     <div className="form-group">
-                                                        <input type="text" placeholder="Enter your product ID" required className="form-control box-shadow" />
+                                                        <input type="text"
+                                                         onChange={(e) => this.props.getFormDetails({ props: ['trackingNo'], value: e.target.value })}
+                                                         placeholder="Enter your product ID" required 
+                                                         className="form-control box-shadow" />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-5 col-sm-5">
+                                                    <Link to="/tracking">
                                                     <div className="form-group">
-                                                        <button className="btn-1">track your product</button>
+                                                        <button onClick={() => this.props.trackProducts(trackingNo)} className="btn-1">track your product</button>
                                                     </div>
+                                                    </Link>
                                                 </div>
                                             </form>
                                         </div>
@@ -202,7 +209,8 @@ class index extends Component {
 }
 
 const mapStateToProps = (state) =>{
-    const {load} = state.General
-    return{load}
+
+    const {load,  trackingNo} = state.General
+    return{load,  trackingNo}
 }
-export default connect(mapStateToProps, {getFormDetails})(index)
+export default connect(mapStateToProps, {getFormDetails, trackProducts})(index)

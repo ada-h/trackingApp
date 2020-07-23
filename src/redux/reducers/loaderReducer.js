@@ -1,4 +1,5 @@
-import {REGISTERING_USER, LOGGING_IN_USER, TRACKING_PRODUCT, CREATING_SHIPMENT, CREATING_SHIPPING_TO, CREATING_SHIPPING_FROM} from '../actions/types'
+import {REGISTERING_USER, LOGGING_IN_USER, TRACKING_PRODUCT, CREATING_SHIPMENT, 
+    CREATING_SHIPPING_TO, CREATING_SHIPPING_FROM, CALCULATING_COST, UPDATING_TRACKING} from '../actions/types'
 
 
 const initialState = {
@@ -7,7 +8,9 @@ const initialState = {
     trackingProducts: false,
     creatingShipment: false,
     creatingShippingTo: false,
-    creatingShippingFrom: false
+    creatingShippingFrom: false,
+    calculatingCost: false,
+    updatingPackage: false,
 
 }
 
@@ -31,6 +34,12 @@ const Loading = (state = initialState, action) => {
 
         case CREATING_SHIPPING_FROM:
             return{...state, creatingShippingFrom: action.payload}
+
+        case CALCULATING_COST:
+            return{...state, calculatingCost: action.payload}
+
+        case UPDATING_TRACKING:
+            return{...state, updatingPackage: action.payload}
 
         default: 
             return {... state}
