@@ -24,6 +24,10 @@
   color: rgb(243, 219, 219);
 }
 
+.t-red {
+  color: red
+}
+
 .App-link {
   color: #61dafb;
 }

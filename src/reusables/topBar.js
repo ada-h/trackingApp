@@ -13,7 +13,7 @@ const TopBar = () => {
                         </ul>
                     </div>
                     <div className="col-md-6 col-sm-7 fs-12">
-                        <p className="contact-num">  <i className="fa fa-phone" /> Call us now: <span className="theme-clr"> +880-1756-390-370 </span> </p>
+                        <p className="contact-num">  <i className="fa fa-phone" /> Call us now: <span className="theme-clr"> +639954994168 </span> </p>
                     </div>
                 </div>
             </div>

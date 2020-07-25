@@ -30,7 +30,7 @@ function App() {
           <Route exact path='/tracking' component={Tracking}></Route>
           <Route exact path='/quote' component={Quote}></Route>
           <Route exact path='/dashboard' component={Dashboard}></Route>
-          <Route exact path = '/create shipping' component={Shipping}></Route>
+          <Route exact path = '/createshipping' component={Shipping}></Route>
         </Switch>
       </BrowserRouter>
     </Provider>

@@ -40,7 +40,14 @@ const initialState = {
     senderCity: '',
     senderEmail: '', 
     senderPhone:'',
-    senderVatNo: 0
+    senderVatNo: 0,
+    calcheight: 0,
+    calcwidth: 0,
+    calcdepth: 0,
+    calcweight: 0,
+    trackingNo: '',
+    presentlocation: '',
+    locationdescription: ''
 
 }
 

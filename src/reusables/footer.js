@@ -15,7 +15,7 @@ const Footer = () => {
                                 <li> <a href="/about">about</a> </li>
                                 <li> <a href="/tracking">tracking</a> </li>
                                 <li> <a href="/quote">get a quote</a> </li>
-                                <li> <a href="/create shipping">book shipment</a> </li>
+                                <li> <a href="/createshipping">book shipment</a> </li>
                             </ul>
                         </div>
                         <div className="col-md-3 col-sm-6 footer-widget">

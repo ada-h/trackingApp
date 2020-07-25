@@ -37,7 +37,6 @@ export const registerCustomer = (name, email, password) => {
                 console.log(res)
             })
             .catch(err => {
-                console.log(err.response, 'i am err')
                 dispatch({
                     type: REGISTRATION_ERROR,
                     payload: err.response.data.error.message
