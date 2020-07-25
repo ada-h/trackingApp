@@ -9,6 +9,7 @@ import {
   CALCULATED_PRICE,
   UPDATING_TRACKING,
   UPDATE_TRACKER_SUCCESS,
+  TRACKING_INFO,
 } from "./types";
 import axios from "axios";
 import config from "./config";
@@ -47,31 +48,37 @@ export const trackProducts = (trackingNo) => {
             payload: "*No information for this tracking number",
           });
         }
-
-        console.log(res.data.tracking, "i am the res");
       })
       .catch((err) => {
         dispatch({
           type: TRACKING_PRODUCT,
           payload: false,
         });
-        console.log(err, "i am the err");
+        dispatch({
+          type: TRACKING_ERROR,
+          payload: err.response.data.error.message,
+        });
       });
   };
 };
 
 //Create tracking
-export const createTrack = () => {
+export const createTrack = (
+  shippingId,
+  shippingTo,
+  shippingFrom,
+  timestamp
+) => {
   let data = {
     tracking_id: 0,
     tracking_no: "string",
     tracking_description: "string",
     location: "string",
-    timestamps: "Unknown Type: date",
+    timestamps: timestamp,
     quantity: 0,
-    shipment_id: 0,
-    shipping_to_id: 0,
-    shipping_from_id: 0,
+    shipment_id: shippingId,
+    shipping_to_id: shippingTo,
+    shipping_from_id: shippingFrom,
   };
   return (dispatch) => {
     dispatch({
@@ -85,15 +92,18 @@ export const createTrack = () => {
           type: CREATING_TRACK,
           payload: false,
         });
-
-        console.log(res.data, "i am the res");
+        dispatch({
+          type: TRACKING_INFO,
+          payload: res.data.tracking,
+        });
+        localStorage.removeItem("shipmentInfo");
+        localStorage.removeItem("shipmentToInfo");
       })
       .catch((err) => {
         dispatch({
           type: CREATING_TRACK,
           payload: false,
         });
-        console.log(err, "i am the err");
       });
   };
 };
@@ -146,17 +156,8 @@ export const calculatePackageCost = (height, width, depth, weight) => {
 
 //Update tracking info
 export const updateTracking = (trackingNo, trackingDescription, location) => {
-  let data = {
-    tracking_id: 0,
-    tracking_no: trackingNo,
-    tracking_description: trackingDescription,
-    location: location,
-    timestamps: "Unknown Type: date",
-    quantity: 0,
-    shipment_id: 0,
-    shipping_to_id: 0,
-    shipping_from_id: 0,
-  };
+  var date = new Date();
+  var timestamp = date.getTime();
   return (dispatch) => {
     if (trackingNo == "" || location == "") {
       dispatch({
@@ -169,28 +170,52 @@ export const updateTracking = (trackingNo, trackingDescription, location) => {
         payload: true,
       });
       axios
-        .put(config.apiUrl + `/shipment/updateTracking`, data)
+        .get(config.apiUrl + `/shipment/trackinginfo?tracking_no=${trackingNo}`)
         .then((res) => {
-          dispatch({
-            type: UPDATING_TRACKING,
-            payload: false,
-          });
-          dispatch({
-            type: UPDATE_TRACKER_SUCCESS,
-            payload: res.data,
-          });
-          console.log(res.data, "i am the res");
+          console.log(res, ' ia m the res')
+          let data = {
+            tracking_id: res.data.tracking.tracking_id,
+            tracking_no: trackingNo,
+            tracking_description: trackingDescription,
+            location:
+              res.data.tracking.location == "string"
+                ? [{ name: location, longitude: "", latitude: "" }]
+                : res.data.tracking.location.push({
+                    name: location,
+                    longitude: "",
+                    latitude: "",
+                  }),
+            timestamps: timestamp,
+            quantity: res.data.tracking.quantity,
+            shipment_id: res.data.tracking.shipment_id,
+            shipping_to_id: res.data.tracking.shipping_to_id,
+            shipping_from_id: res.data.tracking.shipping_from_id,
+          };
+          console.log(data, 'i am the data')
+          axios
+            .put(config.apiUrl + `/shipment/updateTracking`, data)
+            .then((res) => {
+              dispatch({
+                type: UPDATING_TRACKING,
+                payload: false,
+              });
+              dispatch({
+                type: UPDATE_TRACKER_SUCCESS,
+                payload: res.data,
+              });
+            })
+            .catch((err) => {
+              dispatch({
+                type: UPDATING_TRACKING,
+                payload: false,
+              });
+              dispatch({
+                type: UPDATE_TRACKER_FAIL,
+                payload: err.response.data.error.message,
+              });
+            });
         })
-        .catch((err) => {
-          dispatch({
-            type: UPDATING_TRACKING,
-            payload: false,
-          });
-          dispatch({
-            type: UPDATE_TRACKER_FAIL,
-            payload: err.response.data.error.message,
-          });
-        });
+        .catch((err) => {});
     }
   };
 };

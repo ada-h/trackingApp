@@ -34,11 +34,11 @@ const Footer = () => {
                                 <li className="wow fadeIn" data-wow-offset={50} data-wow-delay=".30s"> <a href="#" className="fa fa-google-plus" /> </li>
                                 <li className="wow fadeIn" data-wow-offset={50} data-wow-delay=".35s"> <a href="#" className="fa fa-linkedin" /> </li>
                             </ul>
-                            <ul className="payment-icons list-inline">
+                            {/* <ul className="payment-icons list-inline">
                                 <li className="wow fadeIn" data-wow-offset={50} data-wow-delay=".20s"> <a href="#"> <img alt="#" src="assets/img/icons/payment-1.png" /> </a> </li>
                                 <li className="wow fadeIn" data-wow-offset={50} data-wow-delay=".25s"> <a href="#"> <img alt="#" src="assets/img/icons/payment-2.png" /> </a> </li>
                                 <li className="wow fadeIn" data-wow-offset={50} data-wow-delay=".30s"> <a href="#"> <img alt="#" src="assets/img/icons/payment-3.png" /> </a> </li>
-                            </ul>
+                            </ul> */}
                         </div>
                     </div>
                 </div>

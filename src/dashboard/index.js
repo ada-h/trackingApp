@@ -3,18 +3,40 @@ import Footer from "../reusables/footer";
 import MainNav from "../reusables/mainNav";
 import TopBar from "../reusables/topBar";
 import Login from "../auth";
-import { getFormDetails, updateTracking} from "../redux/actions";
+import { getFormDetails, updateTracking, switchAuthForm} from "../redux/actions";
 import { connect } from "react-redux";
 import Loader from "../reusables/formLoader";
+import Modal from "../reusables/modal";
 
 class index extends Component {
   render() {
       const {updatingPackage,
         trackingNo, presentlocation, locationdescription, calcweight,
-        updateerr} = this.props
+        updateerr, authForm, user} = this.props
     return (
       <div>
         {/* Main Wrapper */}
+        {/* Popup: Login */}
+        <Login />
+        {/* /Popup: Login */}
+        {authForm == 5 ? (
+          <Modal
+            closeModal={() => this.props.switchAuthForm(0)}
+            modalDetail={
+              <div className="">
+                <div className="login-wrap text-center">
+                  <img src="../assets/img/icons/success.png" alt="success" />
+                  <h5> Updated Successfully</h5>
+                </div>
+                <div className="create-accnt">
+                 <h2 className=""> </h2>
+                </div>
+              </div>
+            }
+          />
+        ) : (
+          ""
+        )}
         <main className="wrapper">
           {/* Header */}
           <header className="header-main">
@@ -35,7 +57,7 @@ class index extends Component {
                   <div className="col-sm-8 pull-left">
                     <div className="title-wrap">
                       <h2 className="section-title no-margin">Dashboard</h2>
-                      <p className="fs-16 no-margin">User</p>
+                      <p className="fs-16 no-margin">{user.name == undefined ? "User" : user.name}</p>
                     </div>
                   </div>
                   <div className="col-sm-4">
@@ -54,6 +76,13 @@ class index extends Component {
             {/* /.Breadcrumb */}
 
             {/* More About Us */}
+            {/* <section className="pad-30 more-about-wrap">
+              <div className="theme-container container pb-100">
+                <div className="row">
+
+                </div>
+              </div>
+            </section> */}
             <section className="pad-30 more-about-wrap">
               <div className="theme-container container pb-100">
                 <div className="row">
@@ -237,9 +266,6 @@ class index extends Component {
           {" "}
           <i className="fa fa-angle-up" />{" "}
         </div>
-        {/* Popup: Login */}
-        <Login />
-        {/* /Popup: Login */}
         {/* Search Popup */}
         <div className="search-popup">
           <div>
@@ -264,13 +290,15 @@ class index extends Component {
 
 const mapStateToProps = (state) => {
     const {updatingPackage} = state.Loader
-    const {trackingNo, presentlocation, locationdescription, calcweight} = state.General
+    const {trackingNo, presentlocation, locationdescription, authForm , calcweight} = state.General
     const {updateerr} = state.Tracking
+    const {user} = state.Auth
   return {
     updatingPackage,
-    trackingNo, presentlocation, locationdescription, calcweight,
-    updateerr
+    trackingNo, presentlocation,
+    locationdescription, calcweight,
+    updateerr, authForm, user
   };
 };
 
-export default connect(mapStateToProps, { getFormDetails, updateTracking})(index);
+export default connect(mapStateToProps, { getFormDetails, updateTracking, switchAuthForm})(index);

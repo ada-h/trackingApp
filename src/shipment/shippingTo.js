@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { shippingto, getFormDetails, getCountries } from "../redux/actions";
+import { shippingto, getFormDetails, getCountries, getStates, getCities} from "../redux/actions";
 import Loader from "../reusables/formLoader";
 
 class ShippingTo extends Component {
@@ -21,6 +21,10 @@ class ShippingTo extends Component {
       postal_code,
       receiverState,
       city,
+      allCountries,
+      allStates,
+      allCities,
+      shipmentErr
     } = this.props;
     return (
       <div className="theme-container container">
@@ -163,16 +167,22 @@ class ShippingTo extends Component {
                     <div className="form-group">
                       <select
                         onChange={(e) =>
-                          this.props.getFormDetails({
+                          {this.props.getFormDetails({
                             props: ["receiverCountry"],
                             value: e.target.value,
-                          })
+                          });
+                          this.props.getStates(e.target.value)}
                         }
                         className="form-control"
                         data-live-search="true"
                       >
                         <option>Select Country</option>
-                        <option value="Nigeria">Nigeria</option>
+                        {allCountries.map(country=>{
+                          return(
+                          <option value={country.id}>{country.name}</option>
+                          )
+                        })}
+                        
                       </select>
                     </div>
                   </div>
@@ -189,35 +199,45 @@ class ShippingTo extends Component {
                   </div>
                   <div className="col-sm-9">
                     <div className="col-sm-6 no-pad">
-                      <input
-                        type="text"
-                        data-bind="in:value"
-                        placeholder="City"
-                        value={receiverState}
+                      <select
                         onChange={(e) =>
-                          this.props.getFormDetails({
+                          {this.props.getFormDetails({
                             props: ["receiverState"],
                             value: e.target.value,
-                          })
+                          });
+                          this.props.getCities(e.target.value)}
                         }
                         className="form-control from fw-600"
-                      />
+                        data-live-search="true"
+                      >
+                        <option>State</option>
+                        {allStates.map(state=>{
+                          return(
+                          <option value={state.id}>{state.name}</option>
+                          )
+                        })}
+                        
+                      </select>
                     </div>
                     <div className="col-sm-6 no-pad">
-                      <input
-                        type="text"
-                        data-bind="in:value"
-                        data-name="locations[to]"
-                        value={city}
+                      <select
                         onChange={(e) =>
                           this.props.getFormDetails({
                             props: ["city"],
                             value: e.target.value,
                           })
                         }
-                        placeholder="State"
-                        className="form-control to fw-600"
-                      />
+                        className="form-control from fw-600"
+                        data-live-search="true"
+                      >
+                        <option>City</option>
+                        {allCities.map(city=>{
+                          return(
+                          <option value={city.id}>{city.name}</option>
+                          )
+                        })}
+                        
+                      </select>
                     </div>
                   </div>
                 </div>
@@ -296,6 +316,7 @@ class ShippingTo extends Component {
                     />{" "}
                   </div>
                 </div>
+                <p className='error'>{shipmentErr}</p>
                 <div
                   className="form-group wow fadeInUp"
                   data-wow-offset={50}
@@ -349,6 +370,8 @@ const mapStateToProps = (state) => {
     city,
   } = state.General;
   const { creatingShippingTo } = state.Loader;
+  const {allCountries, allStates, allCities} = state.Utility
+  const {shipmentErr} = state.Shipping
   return {
     receiverName,
     receiverEmail,
@@ -362,9 +385,13 @@ const mapStateToProps = (state) => {
     postal_code,
     receiverState,
     city,
+    allCountries,
+    allStates,
+    allCities,
+    shipmentErr
   };
 };
 
-export default connect(mapStateToProps, { shippingto, getFormDetails, getCountries })(
+export default connect(mapStateToProps, { shippingto, getFormDetails, getCountries, getStates, getCities})(
   ShippingTo
 );
