@@ -3,7 +3,7 @@ let settings ={};
 
 if(platform === 'local'){
     settings ={
-        apiUrl: 'https://tracking.goterem.com',
+        apiUrl: 'https://api.bongoexpresscourier.com',
         appName: 'BongoExpress',
         subect: 'BongoExpress',
         baseUrl: '',
@@ -11,7 +11,7 @@ if(platform === 'local'){
     }
 }else {
     settings ={
-        apiUrl: 'https://tracking.goterem.com',
+        apiUrl: 'https://api.bongoexpresscourier.com',
         appName: 'BongoExpress',
         subect: 'BongoExpress',
         baseUrl: '',
