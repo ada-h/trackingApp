@@ -169,9 +169,9 @@ class index extends Component {
                                             <p className="wow fadeInLeft" data-wow-offset={50} data-wow-delay=".20s">Get in touch with us easiky</p>
                                         </div>
                                         <ul className="contact-detail title-2">
-                                            <li className="wow slideInUp" data-wow-offset={50} data-wow-delay=".20s"> <span>uk numbers:</span> <p className="gray-clr"> +001-2463-957 <br /> +001-4356-643 </p> </li>
-                                            <li className="wow slideInUp" data-wow-offset={50} data-wow-delay=".25s"> <span>usa numbers:</span> <p className="gray-clr"> +001-2463-957 <br /> +001-4356-643 </p> </li>
-                                            <li className="wow slideInUp" data-wow-offset={50} data-wow-delay=".30s"> <span>Email address:</span> <p className="gray-clr"> support@go.com <br /> info@go.com </p> </li>
+                                            <li className="wow slideInUp" data-wow-offset={50} data-wow-delay=".20s"> <span>head office:</span> <p className="gray-clr"> Caloocan City Hall Complex, Metro Manila, Philippines</p> </li>
+                                            <li className="wow slideInUp" data-wow-offset={50} data-wow-delay=".25s"> <span>phone number:</span> <p className="gray-clr"> +639954994168</p> </li>
+                                            <li className="wow slideInUp" data-wow-offset={50} data-wow-delay=".30s"> <span>Email address:</span> <p className="gray-clr"> info@bongoeb.com </p> </li>
                                         </ul>
                                     </div>
                                 </div>
