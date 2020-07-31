@@ -17,4 +17,33 @@ export const getCountries = () => {
         });
     };
   };
+
+export const getStates = (id) => {
+  return(dispatch)=>{
+    axios.get(config.apiUrl + `/state?country_id=${id}`)
+    .then((res)=>{
+      dispatch({
+        type: ALL_STATES,
+        payload: res.data.states
+      })
+    })
+    .catch(err=>{
+    })
+  }
+}
+
+export const getCities = (id) => {
+  return(dispatch)=>{
+    axios.get(config.apiUrl + `/city?state_id=${id}`)
+    .then((res)=>{
+      dispatch({
+        type: ALL_CITIES,
+        payload: res.data.cities
+      })
+    })
+    .catch(err=>{
+    })
+  }
+}
+  
   
