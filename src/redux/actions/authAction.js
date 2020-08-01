@@ -109,7 +109,7 @@ export const customerInfo = (customerId) => {
         });
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 };
@@ -148,10 +148,10 @@ export const updatePersonal = (
     axios
       .post(config.apiUrl + `/customer/update`, body)
       .then((res) => {
-        console.log(res, "i am the update customer info part");
+        // console.log(res, "i am the update customer info part");
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 };
@@ -179,10 +179,9 @@ export const updateAddress = (
     axios
       .post(config.apiUrl + `/customer/address`, body)
       .then((res) => {
-        console.log(res, "i am the update customer address part");
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 };

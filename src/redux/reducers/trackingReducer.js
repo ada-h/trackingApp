@@ -14,13 +14,15 @@ const initialState = {
   calculatedPrice: 0,
   updateerr: "",
   calculatecosterr: "",
-  trackingNo: ""
+  trackingNo: "",
+  location: []
 };
 
 const Loading = (state = initialState, action) => {
   switch (action.type) {
     case TRACKED_PRODUCT:
-      return { ...state, trackedProduct: action.payload };
+      let location =  JSON.parse(action.payload.location)
+      return { ...state, trackedProduct: action.payload, location  };
 
     case TRACKING_ERROR:
       return { ...state, trackingError: action.payload };

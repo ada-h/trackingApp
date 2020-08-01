@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { getFormDetails, trackProducts } from "../redux/actions";
 import { connect } from "react-redux";
 import Loader from "../reusables/formLoader";
-import moment from 'moment';
+import moment from "moment";
 
 class ProductDetail extends Component {
   render() {
@@ -11,8 +11,9 @@ class ProductDetail extends Component {
       trackingProducts,
       trackedProduct,
       trackingError,
+      location
     } = this.props;
-
+    let lastObj = location.slice(-1);
     return (
       <section className="pt-50 pb-120 tracking-wrap">
         <div className="theme-container container ">
@@ -99,7 +100,9 @@ class ProductDetail extends Component {
                     <li>
                       {" "}
                       <span className="title-2">order date:</span>{" "}
-                      <span className="fs-16">{moment(trackedProduct.timestamps).format('YYYY-MM-DD')}</span>{" "}
+                      <span className="fs-16">
+                        {moment(trackedProduct.timestamps).format("YYYY-MM-DD")}
+                      </span>{" "}
                     </li>
                     {/* <li>
                       {" "}
@@ -116,7 +119,7 @@ class ProductDetail extends Component {
                     <li>
                       {" "}
                       <span className="title-2">location:</span>{" "}
-                      <span className="fs-16">{trackedProduct.location}</span>{" "}
+                      <span className="fs-16">{lastObj[0].name}</span>{" "}
                     </li>
                     <li>
                       {" "}
@@ -164,17 +167,19 @@ class ProductDetail extends Component {
                 <div className="col-md-2 col-xs-8 col-sm-3">
                   <p className="fs-12 no-margin">
                     {" "}
-                    [ <b className="black-clr">6 DAYS </b> ]{" "}
+                    {/* [ <b className="black-clr">6 DAYS </b> ]{" "} */}
                   </p>
                 </div>
                 <div className="col-md-4 col-xs-8 col-sm-4 text-center">
                   <p className="fs-12 no-margin"> currently in </p>
-                  <h2 className="title-1 no-margin">singapore</h2>
+                  <h2 className="title-1 no-margin">
+                    {lastObj[0].name}
+                  </h2>
                 </div>
                 <div className="col-md-1 col-xs-8 col-sm-1 no-pad">
                   <p className="fs-12 no-margin">
                     {" "}
-                    [ <b className="black-clr">2 DAYS </b> ]{" "}
+                    {/* [ <b className="black-clr">2 DAYS </b> ]{" "} */}
                   </p>
                 </div>
                 <div className="col-md-2 col-xs-8 col-sm-2 text-right">
@@ -195,13 +200,14 @@ class ProductDetail extends Component {
 const mapStateToProps = (state) => {
   const { trackingNo } = state.General;
   const { trackingProducts } = state.Loader;
-  const { trackedProduct, trackingError } = state.Tracking;
+  const { trackedProduct, trackingError, location } = state.Tracking;
 
   return {
     trackingNo,
     trackingProducts,
     trackedProduct,
     trackingError,
+    location
   };
 };
 

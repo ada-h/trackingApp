@@ -7,7 +7,7 @@ const MainNav = (props) => {
   const { activePage } = props;
 
   return (
-    <nav className="menu-bar font2-title1" id="navbar">
+    <nav className="menu-bar font2-title1">
       <div className="theme-container container">
         <div className="row">
           <div className="col-md-2 col-sm-2">

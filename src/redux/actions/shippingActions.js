@@ -85,15 +85,12 @@ export const createdocument = () => {
           type: CREATING_DOCUMENT,
           payload: false,
         });
-
-        console.log(res, "i am the res");
       })
       .catch((err) => {
         dispatch({
           type: CREATING_DOCUMENT,
           payload: false,
         });
-        console.log(err, "i am the err");
       });
   };
 };
@@ -184,7 +181,8 @@ export const shippingfrom = (
   senderCity,
   senderEmail,
   senderPhone,
-  senderVatNo
+  senderVatNo,
+  description
 ) => {
   let data = {
     sender_name: senderName,
@@ -231,6 +229,7 @@ export const shippingfrom = (
                 shipmentInfo.shipment_id,
                 shipmentToInfo.shipping_to_id,
                 res.data.shippingFrom.shipping_from_id,
+                description,
                 timestamp
               )
             );
