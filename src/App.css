@@ -13,6 +13,11 @@
   }
 }
 
+
+.btn {
+  cursor: pointer;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -89,10 +94,14 @@
   margin: auto;
   margin-bottom: 50px;
   border: 1px solid #888;
-  width: 30%;
+  width: 90%;
   border-radius: 8px;
 }
-
+@media screen and (min-width: 480px) {
+  .modal-content {
+    width: 30%;
+  }
+}
 /* The Close Button */
 .close {
   color: #000 ;

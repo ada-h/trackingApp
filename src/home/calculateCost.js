@@ -51,8 +51,7 @@ class CalculateCost extends Component {
                 data-wow-offset={50}
                 data-wow-delay=".25s"
               >
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit nonummy
-                nibh euismod tincidunt ut laoreet.
+               Get an estimate of the cost of shipping in a second!
               </p>
               <div className="calculate-form">
                 <form className="row">

@@ -63,7 +63,7 @@ class Login extends Component {
           </div>
         </div>
         <div className="create-accnt">
-          <a href="#" className="white-clr">
+          {/* <a href="#" className="white-clr">
             {" "}
             Don’t have an account?{" "}
           </a>
@@ -74,7 +74,7 @@ class Login extends Component {
             >
               Create a free account
             </a>{" "}
-          </h2>
+          </h2> */}
         </div>
       </div>
     );
