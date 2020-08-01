@@ -19,7 +19,7 @@ class index extends Component {
     const { load, trackingNo } = this.props;
     return (
       <div>
-             {/* Popup: Login */}
+        {/* Popup: Login */}
         <Auth />
         {/* /Popup: Login */}
         {load == 0 ? <PreLoader /> : ""}
@@ -255,13 +255,8 @@ class index extends Component {
                         data-wow-offset={50}
                         data-wow-delay=".25s"
                       >
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing
-                        elit, sed diam <br />
-                        nonummy nibh euismod tincidunt ut laoreet dolore magna
-                        aliquam <br />
-                        erat volutpat. Ut wisi enim ad minim veniam, quis
-                        nostrud exerci <br />
-                        tation ullamcorper suscipit lobortis nisl ut aliquip.
+                        With Bongo express, complaints about late shipping<br/>
+                        becomes a thing of the past.
                       </p>
                       <div className="pb-120 hidden-xs" />
                     </div>
@@ -306,7 +301,7 @@ class index extends Component {
                         data-wow-offset={50}
                         data-wow-delay=".20s"
                       >
-                        Get in touch with us easiky
+                        Get in touch with us easily
                       </p>
                     </div>
                     <ul className="contact-detail title-2">
@@ -358,7 +353,7 @@ class index extends Component {
           {" "}
           <i className="fa fa-angle-up" />{" "}
         </div>
-     
+
         {/* Search Popup */}
         <div className="search-popup">
           <div>

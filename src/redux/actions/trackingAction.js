@@ -173,18 +173,21 @@ export const updateTracking = (trackingNo, trackingDescription, location) => {
         .get(config.apiUrl + `/shipment/trackinginfo?tracking_no=${trackingNo}`)
         .then((res) => {
           console.log(res, ' ia m the res')
+          console.log(res.data.tracking.location, 'i am the location')
+          let ourlocation = JSON.parse(res.data.tracking.location);
+          console.log(res.data.tracking.location, ourlocation, 'i am the location')
           let data = {
             tracking_id: res.data.tracking.tracking_id,
             tracking_no: trackingNo,
             tracking_description: trackingDescription,
             location:
-              res.data.tracking.location == "string"
-                ? [{ name: location, longitude: "", latitude: "" }]
-                : res.data.tracking.location.push({
+            ourlocation.length == 0
+                ? JSON.stringify([{ name: location, longitude: "", latitude: "" }])
+                : JSON.stringify(ourlocation.push({
                     name: location,
                     longitude: "",
                     latitude: "",
-                  }),
+                  })),
             timestamps: timestamp,
             quantity: res.data.tracking.quantity,
             shipment_id: res.data.tracking.shipment_id,
