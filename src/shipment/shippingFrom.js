@@ -30,7 +30,8 @@ class ShippingFrom extends Component {
       allCountries,
       allStates,
       allCities,
-      shipmentErr
+      shipmentErr,
+      description
     } = this.props;
     return (
       <div className="theme-container container">
@@ -151,6 +152,31 @@ class ShippingFrom extends Component {
                       onChange={(e) =>
                         this.props.getFormDetails({
                           props: ["senderCompany"],
+                          value: e.target.value,
+                        })
+                      }
+                      type="text"
+                      placeholder
+                      className="form-control"
+                    />{" "}
+                  </div>
+                </div>
+                <div
+                  className="form-group wow fadeInUp"
+                  data-wow-offset={50}
+                  data-wow-delay=".20s"
+                >
+                  <div className="col-sm-3">
+                    {" "}
+                    <label className="title-2"> Package Description: </label>
+                  </div>
+                  <div className="col-sm-9">
+                    {" "}
+                    <input
+                      value={description}
+                      onChange={(e) =>
+                        this.props.getFormDetails({
+                          props: ["description"],
                           value: e.target.value,
                         })
                       }
@@ -361,7 +387,8 @@ class ShippingFrom extends Component {
                           senderCity,
                           senderEmail,
                           senderPhone,
-                          senderVatNo
+                          senderVatNo,
+                          description
                         )
                       }
                     >
@@ -392,6 +419,7 @@ const mapStateToProps = (state) => {
     senderEmail,
     senderPhone,
     senderVatNo,
+    description
   } = state.General;
   const { creatingShippingFrom } = state.Loader;
   const { allCountries, allStates, allCities } = state.Utility;
@@ -412,7 +440,8 @@ const mapStateToProps = (state) => {
     allCountries,
     allStates,
     allCities,
-    shipmentErr
+    shipmentErr,
+    description
   };
 };
 

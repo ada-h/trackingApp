@@ -37,10 +37,10 @@ export const trackProducts = (trackingNo) => {
           type: TRACKING_PRODUCT,
           payload: false,
         });
-        if (res.data.tracking !== null) {
+        if (res.data.trackingJson !== null) {
           dispatch({
             type: TRACKED_PRODUCT,
-            payload: res.data.tracking,
+            payload: res.data.trackingJson,
           });
         } else {
           dispatch({
@@ -56,7 +56,7 @@ export const trackProducts = (trackingNo) => {
         });
         dispatch({
           type: TRACKING_ERROR,
-          payload: err.response.data.error.message,
+          payload: err.response == undefined ? "Something went wrong" : err.response.data.error.message ,
         });
       });
   };
@@ -67,13 +67,14 @@ export const createTrack = (
   shippingId,
   shippingTo,
   shippingFrom,
+  description,
   timestamp
 ) => {
   let data = {
     tracking_id: 0,
     tracking_no: "string",
-    tracking_description: "string",
-    location: "string",
+    tracking_description: description,
+    location: "",
     timestamps: timestamp,
     quantity: 0,
     shipment_id: shippingId,
@@ -172,29 +173,32 @@ export const updateTracking = (trackingNo, trackingDescription, location) => {
       axios
         .get(config.apiUrl + `/shipment/trackinginfo?tracking_no=${trackingNo}`)
         .then((res) => {
-          console.log(res, ' ia m the res')
-          console.log(res.data.tracking.location, 'i am the location')
-          let ourlocation = JSON.parse(res.data.tracking.location);
-          console.log(res.data.tracking.location, ourlocation, 'i am the location')
+          let presentlocations =
+            res.data.trackingJson.location == ""
+              ? ""
+              : JSON.parse(res.data.trackingJson.location);
           let data = {
-            tracking_id: res.data.tracking.tracking_id,
+            tracking_id: res.data.trackingJson.tracking_id,
             tracking_no: trackingNo,
             tracking_description: trackingDescription,
             location:
-            ourlocation.length == 0
-                ? JSON.stringify([{ name: location, longitude: "", latitude: "" }])
-                : JSON.stringify(ourlocation.push({
-                    name: location,
-                    longitude: "",
-                    latitude: "",
-                  })),
+              res.data.trackingJson.location == ""
+                ? JSON.stringify([
+                    { name: location, longitude: "", latitude: "" },
+                  ])
+                : JSON.stringify(
+                    presentlocations.concat({
+                      name: location,
+                      longitude: "",
+                      latitude: "",
+                    })
+                  ),
             timestamps: timestamp,
-            quantity: res.data.tracking.quantity,
-            shipment_id: res.data.tracking.shipment_id,
-            shipping_to_id: res.data.tracking.shipping_to_id,
-            shipping_from_id: res.data.tracking.shipping_from_id,
+            quantity: res.data.trackingJson.quantity,
+            shipment_id: res.data.trackingJson.shipment_id,
+            shipping_to_id: res.data.trackingJson.shipping_to_id,
+            shipping_from_id: res.data.trackingJson.shipping_from_id,
           };
-          console.log(data, 'i am the data')
           axios
             .put(config.apiUrl + `/shipment/updateTracking`, data)
             .then((res) => {
