@@ -21,7 +21,7 @@ const initialState = {
 const Loading = (state = initialState, action) => {
   switch (action.type) {
     case TRACKED_PRODUCT:
-      let location =  JSON.parse(action.payload.location)
+      let location =  action.payload.location !== "" ? JSON.parse(action.payload.location) : []
       return { ...state, trackedProduct: action.payload, location  };
 
     case TRACKING_ERROR:

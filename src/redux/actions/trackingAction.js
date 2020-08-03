@@ -37,10 +37,10 @@ export const trackProducts = (trackingNo) => {
           type: TRACKING_PRODUCT,
           payload: false,
         });
-        if (res.data.tracking !== null) {
+        if (res.data.trackingJson !== null) {
           dispatch({
             type: TRACKED_PRODUCT,
-            payload: res.data.tracking,
+            payload: res.data.trackingJson,
           });
         } else {
           dispatch({
@@ -174,15 +174,15 @@ export const updateTracking = (trackingNo, trackingDescription, location) => {
         .get(config.apiUrl + `/shipment/trackinginfo?tracking_no=${trackingNo}`)
         .then((res) => {
           let presentlocations =
-            res.data.tracking.location == ""
+            res.data.trackingJson.location == ""
               ? ""
-              : JSON.parse(res.data.tracking.location);
+              : JSON.parse(res.data.trackingJson.location);
           let data = {
-            tracking_id: res.data.tracking.tracking_id,
+            tracking_id: res.data.trackingJson.tracking_id,
             tracking_no: trackingNo,
             tracking_description: trackingDescription,
             location:
-              res.data.tracking.location == ""
+              res.data.trackingJson.location == ""
                 ? JSON.stringify([
                     { name: location, longitude: "", latitude: "" },
                   ])
@@ -194,10 +194,10 @@ export const updateTracking = (trackingNo, trackingDescription, location) => {
                     })
                   ),
             timestamps: timestamp,
-            quantity: res.data.tracking.quantity,
-            shipment_id: res.data.tracking.shipment_id,
-            shipping_to_id: res.data.tracking.shipping_to_id,
-            shipping_from_id: res.data.tracking.shipping_from_id,
+            quantity: res.data.trackingJson.quantity,
+            shipment_id: res.data.trackingJson.shipment_id,
+            shipping_to_id: res.data.trackingJson.shipping_to_id,
+            shipping_from_id: res.data.trackingJson.shipping_from_id,
           };
           axios
             .put(config.apiUrl + `/shipment/updateTracking`, data)

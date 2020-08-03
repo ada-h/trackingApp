@@ -14,6 +14,7 @@ class ProductDetail extends Component {
       location
     } = this.props;
     let lastObj = location.slice(-1);
+
     return (
       <section className="pt-50 pb-120 tracking-wrap">
         <div className="theme-container container ">
@@ -119,7 +120,7 @@ class ProductDetail extends Component {
                     <li>
                       {" "}
                       <span className="title-2">location:</span>{" "}
-                      <span className="fs-16">{lastObj[0].name}</span>{" "}
+                      <span className="fs-16"> {location.length == 0 ? trackedProduct.ShippingFroms[0].CityJson.name +','+ trackedProduct.ShippingFroms[0].StateJson.name :  lastObj[0].name}</span>{" "}
                     </li>
                     <li>
                       {" "}
@@ -162,7 +163,7 @@ class ProductDetail extends Component {
               <div className="row progress-content upper-text">
                 <div className="col-md-3 col-xs-8 col-sm-2">
                   <p className="fs-12 no-margin"> FROM </p>
-                  <h2 className="title-1 no-margin">London</h2>
+                  <h2 className="title-1 no-margin">{trackedProduct.ShippingFroms[0].CityJson.name +','+ trackedProduct.ShippingFroms[0].StateJson.name}</h2>
                 </div>
                 <div className="col-md-2 col-xs-8 col-sm-3">
                   <p className="fs-12 no-margin">
@@ -173,7 +174,7 @@ class ProductDetail extends Component {
                 <div className="col-md-4 col-xs-8 col-sm-4 text-center">
                   <p className="fs-12 no-margin"> currently in </p>
                   <h2 className="title-1 no-margin">
-                    {lastObj[0].name}
+                  {location.length == 0 ? trackedProduct.ShippingFroms[0].CityJson.name +','+ trackedProduct.ShippingFroms[0].StateJson.name :  lastObj[0].name}
                   </h2>
                 </div>
                 <div className="col-md-1 col-xs-8 col-sm-1 no-pad">
@@ -184,7 +185,7 @@ class ProductDetail extends Component {
                 </div>
                 <div className="col-md-2 col-xs-8 col-sm-2 text-right">
                   <p className="fs-12 no-margin"> to </p>
-                  <h2 className="title-1 no-margin">dhaka</h2>
+                  <h2 className="title-1 no-margin">{trackedProduct.ShippingTos[0].CityJson.name +','+ trackedProduct.ShippingTos[0].StateJson.name}</h2>
                 </div>
               </div>
             </div>
