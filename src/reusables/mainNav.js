@@ -8,7 +8,7 @@ const MainNav = (props) => {
 
   return (
     <nav className="menu-bar font2-title1">
-      <div className="theme-container container">
+      <div className="theme-container container" >
         <div className="row">
           <div className="col-md-2 col-sm-2">
             <button

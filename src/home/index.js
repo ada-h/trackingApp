@@ -332,8 +332,8 @@ class index extends Component {
                         data-wow-delay=".30s"
                       >
                         {" "}
-                        <span>Email address:</span>{" "}
-                        <p className="gray-clr"> info@bongoeb.com </p>{" "}
+                        <span>Email address:</span>{" "}<br/>
+                        <p className="gray-clr"> info@bongoexpresscourier.com </p>{" "}
                       </li>
                     </ul>
                   </div>
