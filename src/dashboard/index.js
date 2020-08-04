@@ -3,16 +3,41 @@ import Footer from "../reusables/footer";
 import MainNav from "../reusables/mainNav";
 import TopBar from "../reusables/topBar";
 import Login from "../auth";
-import { getFormDetails, updateTracking, switchAuthForm} from "../redux/actions";
+import { getAllTracking, getFormDetails, updateTracking, switchAuthForm, } from "../redux/actions";
 import { connect } from "react-redux";
 import Loader from "../reusables/formLoader";
 import Modal from "../reusables/modal";
 
 class index extends Component {
+  constructor(props) {
+    super(props);
+    this.state ={
+      editing: false,
+      textColor: {
+        color:'black'
+      }
+    }
+  }
+  componentWillMount() {
+    this.props.getAllTracking();
+  }
+  setUpdateTracking(tracking_id) {
+    const tracking = this.props.allProducts.filter(p => p.tracking_id == tracking_id);
+    if (tracking.length > 0) {
+      this.setState({
+        editing: true
+      })
+      this.props.getFormDetails({
+        props: "trackingNo",
+        value: tracking[0].tracking_no,
+      })
+    }
+  }
   render() {
-      const {updatingPackage,
-        trackingNo, presentlocation, locationdescription, calcweight,
-        updateerr, authForm, user} = this.props
+    const { updatingPackage,
+      trackingNo, presentlocation, locationdescription, calcweight,
+      updateerr, authForm, user, allProducts } = this.props
+      console.log(allProducts)
     return (
       <div>
         {/* Main Wrapper */}
@@ -29,14 +54,14 @@ class index extends Component {
                   <h5> Updated Successfully</h5>
                 </div>
                 <div className="create-accnt">
-                 <h2 className=""> </h2>
+                  <h2 className=""> </h2>
                 </div>
               </div>
             }
           />
         ) : (
-          ""
-        )}
+            ""
+          )}
         <main className="wrapper">
           {/* Header */}
           <header className="header-main">
@@ -76,14 +101,51 @@ class index extends Component {
             {/* /.Breadcrumb */}
 
             {/* More About Us */}
-            {/* <section className="pad-30 more-about-wrap">
+            {
+              !this.state.editing?
+              <section className="pad-30 more-about-wrap">
               <div className="theme-container container pb-100">
                 <div className="row">
 
+
+                  <table style={{width:"100%"}}>
+                    <tr>
+                      <th>tracking no</th>
+                      <th>shipment</th>
+                      <th>Container no</th>
+                      <th>Action</th>
+                    </tr>
+                    {
+                      allProducts.length > 0?
+                      allProducts.map((product) => {
+                        return (
+                          <tr>
+                            <td>{product.tracking_no}</td>
+                            <td>{product.Shipments[0].name}</td>
+                            <td>{product.Shipments[0].container_no}</td>
+                            <td><div
+                              
+                            >
+                              <button
+                              className="btn-1 t-center"
+                              onClick={() =>this.setUpdateTracking(product.tracking_id)}>Update Location</button>
+                              
+                                      </div></td>
+                          </tr>
+                        )
+
+                      }): <tr>no data to display</tr>
+
+                    }
+                  </table>
                 </div>
               </div>
-            </section> */}
-            <section className="pad-30 more-about-wrap">
+            </section>
+:null
+            }
+                        {
+              this.state.editing?
+              <section className="pad-30 more-about-wrap" >
               <div className="theme-container container pb-100">
                 <div className="row">
                   <section className="calculate pt-100">
@@ -96,6 +158,7 @@ class index extends Component {
                         {" "}
                         update{" "}
                       </span>
+                      <a onClick={()=>{this.props.getAllTracking()}} style={{color:'#f5ab35'}}>view List</a>
                       <div className="row">
                         <div className="col-md-6 text-center">
                           <img
@@ -144,11 +207,13 @@ class index extends Component {
                                     data-name="height"
                                     type="text"
                                     placeholder
+                                    disabled
                                     className="form-control"
                                     value={trackingNo}
+                                    style={this.state.textColor}
                                     onChange={(e) =>
                                       this.props.getFormDetails({
-                                        props: ["trackingNo"],
+                                        props: "trackingNo",
                                         value: e.target.value,
                                       })
                                     }
@@ -176,9 +241,10 @@ class index extends Component {
                                     placeholder
                                     className="form-control"
                                     value={presentlocation}
+                                    style={this.state.textColor}
                                     onChange={(e) =>
                                       this.props.getFormDetails({
-                                        props: ["presentlocation"],
+                                        props: "presentlocation",
                                         value: e.target.value,
                                       })
                                     }
@@ -206,16 +272,17 @@ class index extends Component {
                                     placeholder
                                     className="form-control"
                                     value={locationdescription}
+                                    style={this.state.textColor}
                                     onChange={(e) =>
                                       this.props.getFormDetails({
-                                        props: ["locationdescription"],
+                                        props: "locationdescription",
                                         value: e.target.value,
                                       })
                                     }
                                   />{" "}
                                 </div>
                               </div>
-                                <p className='error'> {updateerr}</p>
+                              <p className='error'> {updateerr}</p>
                               <div
                                 className="form-group wow fadeInUp"
                                 data-wow-offset={50}
@@ -228,19 +295,19 @@ class index extends Component {
                                       <Loader />{" "}
                                     </div>
                                   ) : (
-                                    <div
-                                      className="btn-1 t-center"
-                                      onClick={() =>
-                                        this.props.updateTracking(
-                                          trackingNo,
-                                          locationdescription,
-                                          presentlocation,        
-                                        )
-                                      }
-                                    >
-                                     Submit
-                                    </div>
-                                  )}
+                                      <div
+                                        className="btn-1 t-center"
+                                        onClick={() =>
+                                          this.props.updateTracking(
+                                            trackingNo,
+                                            locationdescription,
+                                            presentlocation,
+                                          )
+                                        }
+                                      >
+                                        Submit
+                                      </div>
+                                    )}
                                 </div>
                               </div>
                             </form>
@@ -253,7 +320,9 @@ class index extends Component {
                 </div>
               </div>
             </section>
-            {/* /.More About Us */}
+:null
+            }
+                       {/* /.More About Us */}
           </article>
           {/* /.Content Wrapper */}
           {/* Footer */}
@@ -289,16 +358,17 @@ class index extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const {updatingPackage} = state.Loader
-    const {trackingNo, presentlocation, locationdescription, authForm , calcweight} = state.General
-    const {updateerr} = state.Tracking
-    const {user} = state.Auth
+  const { updatingPackage } = state.Loader
+  const { trackingNo, presentlocation, locationdescription, authForm, calcweight } = state.General
+  const { updateerr, allProducts } = state.Tracking
+  const { user } = state.Auth
+  console.log(state.General)
   return {
     updatingPackage,
     trackingNo, presentlocation,
     locationdescription, calcweight,
-    updateerr, authForm, user
+    updateerr, authForm, user, allProducts
   };
 };
 
-export default connect(mapStateToProps, { getFormDetails, updateTracking, switchAuthForm})(index);
+export default connect(mapStateToProps, { getAllTracking, getFormDetails, updateTracking, switchAuthForm })(index);

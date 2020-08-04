@@ -10,6 +10,7 @@ import {
   UPDATING_TRACKING,
   UPDATE_TRACKER_SUCCESS,
   TRACKING_INFO,
+  ALL_PRODUCT
 } from "./types";
 import axios from "axios";
 import config from "./config";
@@ -62,6 +63,44 @@ export const trackProducts = (trackingNo) => {
   };
 };
 
+//Track product
+export const getAllTracking = () => {
+  return (dispatch) => {
+    dispatch({
+      type: TRACKING_PRODUCT,
+      payload: true,
+    });
+    axios
+      .get(config.apiUrl + `/shipment/getAllTracking`)
+      .then((res) => {
+        dispatch({
+          type: TRACKING_PRODUCT,
+          payload: false,
+        });
+        if (res.data.trackingJsonList.length > 0) {
+          dispatch({
+            type: ALL_PRODUCT,
+            payload: res.data.trackingJsonList,
+          });
+        } else {
+          dispatch({
+            type: TRACKING_ERROR,
+            payload: "*No information for this tracking number",
+          });
+        }
+      })
+      .catch((err) => {
+        dispatch({
+          type: TRACKING_PRODUCT,
+          payload: false,
+        });
+        dispatch({
+          type: TRACKING_ERROR,
+          payload: err.response == undefined ? "Something went wrong" : err.response.data.error.message ,
+        });
+      });
+  };
+};
 //Create tracking
 export const createTrack = (
   shippingId,

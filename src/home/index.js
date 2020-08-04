@@ -123,7 +123,9 @@ class index extends Component {
                           </Link>
                         </div>
                       </form>
+                      {/* <div id="google_translate_element"></div> */}
                     </div>
+                    
                   </div>
                 </div>
               </div>

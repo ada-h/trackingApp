@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { changeActive } from "../redux/actions";
 
 const MainNav = (props) => {
-  const { activePage } = props;
+  const { activePage, auth} = props;
 
   return (
     <nav className="menu-bar font2-title1">
@@ -61,6 +61,7 @@ const MainNav = (props) => {
                   {" "}
                   <Link to="/quote"> Get a quote</Link>{" "}
                 </li>
+               
                 <li
                   className={
                     window.location.pathname == "/createshipping"
@@ -70,7 +71,21 @@ const MainNav = (props) => {
                 >
                   {" "}
                   <Link to="/createshipping"> Book Shipment</Link>{" "}
+                  <div id="google_translate_element"></div>
+
                 </li>
+                {auth == true ?
+                <li
+                  className={
+                    window.location.pathname == "/dashboard"
+                      ? "active"
+                      : ""
+                  }
+                >
+                   {" "}
+                  <Link to="/dashboard"> Dashboard</Link>{" "}
+                </li>: null
+                }
                 {/* <li onClick={()=>props.changeActive(5)} className={activePage == 5 ? "active" : ''}> <Link to='/quote'> contact </Link> </li> */}
 
                 <li>

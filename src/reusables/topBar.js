@@ -26,14 +26,17 @@ class TopBar extends Component {
                 <i className="fa fa-phone" /> Call us now:{" "}
                 <span className="theme-clr"> +639954994168 </span>{" "}
               </p>
+
             </div>
           </div>
         </div>
         {auth == true ? (
-          <Link to="/dashboard" className="sign-in fs-12 theme-clr-bg">
-            {" "}
-            Dashboard{" "}
-          </Link>
+         
+        <Link to="/" onClick={()=>{  localStorage.setItem("bongoExpressToken", "");
+      }} className="sign-in fs-12 theme-clr-bg">
+          {" "}
+          Log out{" "}
+        </Link>
         ) : (
           <div
             onClick={() => this.props.switchAuthForm(1)}

@@ -6,6 +6,7 @@ import {
   CALCULATING_COST_ERROR,
   UPDATE_TRACKER_FAIL,
   TRACKING_INFO,
+  ALL_PRODUCT
 } from "../actions/types";
 
 const initialState = {
@@ -15,7 +16,8 @@ const initialState = {
   updateerr: "",
   calculatecosterr: "",
   trackingNo: "",
-  location: []
+  location: [],
+  allProducts: []
 };
 
 const Loading = (state = initialState, action) => {
@@ -23,6 +25,9 @@ const Loading = (state = initialState, action) => {
     case TRACKED_PRODUCT:
       let location =  action.payload.location !== "" ? JSON.parse(action.payload.location) : []
       return { ...state, trackedProduct: action.payload, location  };
+
+    case ALL_PRODUCT:
+      return { ...state, allProducts: action.payload  };
 
     case TRACKING_ERROR:
       return { ...state, trackingError: action.payload };

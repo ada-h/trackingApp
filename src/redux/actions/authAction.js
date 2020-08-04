@@ -69,6 +69,7 @@ export const loginCustomer = (email, password) => {
       payload: true,
     });
     if (email !== "" && password !== "") {
+      console.log(config.apiUrl)
       axios
         .post(config.apiUrl + "/customers/login", qs.stringify(data), apiconfig)
         .then((res) => {
@@ -89,7 +90,7 @@ export const loginCustomer = (email, password) => {
           });
           dispatch({
             type: LOGIN_IN_ERR,
-            payload: err.response.data.error.message,
+            payload: 'unable to login',
           });
         });
     }
