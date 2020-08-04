@@ -339,6 +339,15 @@ class index extends Component {
                       </li>
                     </ul>
                   </div>
+                  {/* <div className="delivery-img pt-10">
+                      <img
+                        alt=""
+                        src="assets/img/block/support.png"
+                        className="wow slideInLeft"
+                        data-wow-offset={50}
+                        data-wow-delay=".20s"
+                      />
+                    </div> */}
                 </div>
               </div>
             </section>

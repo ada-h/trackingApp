@@ -54,7 +54,7 @@ const initialState = {
   trackingNo: "",
   presentlocation: "",
   locationdescription: "",
-  description: ""
+  description: "",
 };
 
 const General = (state = initialState, action) => {

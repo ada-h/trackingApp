@@ -3,7 +3,8 @@ import {
   LOGIN_SUCCESSFUL,
   USER_INFORMATION,
   LOGIN_IN_ERR,
-  FILL_OUT_FORM
+  FILL_OUT_FORM,
+  LOGOUT_SUCCESSFUL
 } from "../actions/types";
 import axios from "axios";
 
@@ -22,6 +23,10 @@ const Auth = (state = initialState, action) => {
     case LOGIN_SUCCESSFUL:
       storeToken(action.payload.token);
       return { ...state, auth: true };
+
+    case LOGOUT_SUCCESSFUL:
+      removeToken();
+      return { ...state, auth: false };
 
     case USER_INFORMATION:
       if (action.auth == true) {
@@ -43,6 +48,11 @@ const Auth = (state = initialState, action) => {
 const storeToken = (payload) => {
   localStorage.setItem("bongoExpressToken", JSON.stringify(payload));
   axios.defaults.headers.common["Authorization"] = "Bearer " + payload;
+};
+
+const removeToken = () => {
+  localStorage.setItem("bongoExpressToken", "");
+  axios.defaults.headers.common["Authorization"] = "Bearer " + "";
 };
 
 const saveUser = (payload) => {

@@ -111,7 +111,8 @@ class index extends Component {
                   <table style={{width:"100%"}}>
                     <tr>
                       <th>tracking no</th>
-                      <th>shipment</th>
+                      <th>shipment name</th>
+                      <th>description</th>
                       <th>Container no</th>
                       <th>Action</th>
                     </tr>
@@ -121,7 +122,8 @@ class index extends Component {
                         return (
                           <tr>
                             <td>{product.tracking_no}</td>
-                            <td>{product.Shipments[0].name}</td>
+                            <td>{product.Shipments[0].name}</td>                            
+                            <td>{product.tracking_description}</td>
                             <td>{product.Shipments[0].container_no}</td>
                             <td><div
                               

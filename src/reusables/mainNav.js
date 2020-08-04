@@ -61,19 +61,6 @@ const MainNav = (props) => {
                   {" "}
                   <Link to="/quote"> Get a quote</Link>{" "}
                 </li>
-               
-                <li
-                  className={
-                    window.location.pathname == "/createshipping"
-                      ? "active"
-                      : ""
-                  }
-                >
-                  {" "}
-                  <Link to="/createshipping"> Book Shipment</Link>{" "}
-                  <div id="google_translate_element"></div>
-
-                </li>
                 {auth == true ?
                 <li
                   className={
@@ -86,6 +73,19 @@ const MainNav = (props) => {
                   <Link to="/dashboard"> Dashboard</Link>{" "}
                 </li>: null
                 }
+                <li
+                  className={
+                    window.location.pathname == "/createshipping"
+                      ? "active"
+                      : ""
+                  }
+                >
+                  {" "}
+                  <Link to="/createshipping"> Book Shipment</Link>{" "}
+                  <div id="google_translate_element"></div>
+
+                </li>
+                
                 {/* <li onClick={()=>props.changeActive(5)} className={activePage == 5 ? "active" : ''}> <Link to='/quote'> contact </Link> </li> */}
 
                 <li>
@@ -104,8 +104,10 @@ const MainNav = (props) => {
 
 const mapStateToProps = (state) => {
   const { activePage } = state.General;
+  const { auth } = state.Auth;
   return {
     activePage,
+    auth
   };
 };
 

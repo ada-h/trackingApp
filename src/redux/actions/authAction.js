@@ -5,7 +5,8 @@ import {
   REGISTRATION_ERROR,
   LOGIN_SUCCESSFUL,
   USER_INFORMATION,
-  LOGIN_IN_ERR
+  LOGIN_IN_ERR,
+  LOGOUT_SUCCESSFUL
 } from "./types";
 import axios from "axios";
 import config from "./config";
@@ -114,6 +115,16 @@ export const customerInfo = (customerId) => {
       });
   };
 };
+
+export const logout = (payload) => {
+
+  return (dispatch) => {
+      dispatch({
+          type: LOGOUT_SUCCESSFUL,
+          payload
+      })
+  }
+}
 
 //Reinitialize user data
 export const reinitializeUser = () => {

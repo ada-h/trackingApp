@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { switchAuthForm } from "../redux/actions";
+import {logout, switchAuthForm } from "../redux/actions";
 
 class TopBar extends Component {
+  logout(){
+    this.props.logout();
+  }
   render() {
     const { auth } = this.props;
     return (
@@ -31,12 +34,14 @@ class TopBar extends Component {
           </div>
         </div>
         {auth == true ? (
-         
-        <Link to="/" onClick={()=>{  localStorage.setItem("bongoExpressToken", "");
-      }} className="sign-in fs-12 theme-clr-bg">
+         <div>
+           
+<div onClick={()=> this.logout()} className="sign-in fs-6 theme-clr-bg">
           {" "}
           Log out{" "}
-        </Link>
+        </div>
+         </div>
+        
         ) : (
           <div
             onClick={() => this.props.switchAuthForm(1)}
@@ -56,4 +61,4 @@ const mapStateToProps = (state) => {
   return { auth };
 };
 
-export default connect(mapStateToProps, { switchAuthForm })(TopBar);
+export default connect(mapStateToProps, {logout, switchAuthForm })(TopBar);
