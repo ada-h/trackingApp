@@ -118,3 +118,31 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2; color: black}
+
+.divbtn{
+  float: right;
+  padding: 10px;
+  background-color: #F5AB35;
+  color: white;
+  margin-top: 20px;
+}
+
+
+
+.divbtn:hover, .divbtn:focus, .divbtn:active {
+  background-color: white;
+  color: #F5AB35;
+  border: 1px solid #F5AB35;
+}

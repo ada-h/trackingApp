@@ -11,9 +11,10 @@ class ProductDetail extends Component {
       trackingProducts,
       trackedProduct,
       trackingError,
-      location
+      location,
     } = this.props;
     let lastObj = location.slice(-1);
+    console.log(location, "i am location")
 
     return (
       <section className="pt-50 pb-120 tracking-wrap">
@@ -68,7 +69,7 @@ class ProductDetail extends Component {
           (trackedProduct.location !== undefined) ? (
             <div className="row">
               <div
-                className="col-md-7 pad-30 wow fadeInLeft"
+                className="col-md-5 pad-30 wow fadeInLeft"
                 data-wow-offset={50}
                 data-wow-delay=".30s"
               >
@@ -76,19 +77,20 @@ class ProductDetail extends Component {
                   alt=""
                   src="https://www.pngmart.com/files/11/Package-PNG-Pic.png"
                 />
+                               
               </div>
               <div
-                className="col-md-5 pad-30 wow fadeInRight"
+                className="col-md-7 pad-30 wow fadeInRight"
                 data-wow-offset={50}
                 data-wow-delay=".30s"
               >
-                <div className="prod-info white-clr">
-                  <ul>
+                
+                   <ul>
                     <li>
                       {" "}
-                      <span className="title-2">Description:</span>{" "}
+                      <span className="title-2">Name:</span>{" "}
                       <span className="fs-16">
-                        {trackedProduct.tracking_description}
+                        {trackedProduct.Shipments[0].name}
                       </span>{" "}
                     </li>
                     <li>
@@ -105,38 +107,58 @@ class ProductDetail extends Component {
                         {moment(trackedProduct.timestamps).format("YYYY-MM-DD")}
                       </span>{" "}
                     </li>
-                    {/* <li>
-                      {" "}
-                      <span className="title-2">order status:</span>{" "}
-                      <span className="fs-16 theme-clr">On Process</span>{" "}
-                    </li> */}
                     <li>
                       {" "}
-                      <span className="title-2">weight (kg):</span>{" "}
+                      <span className="title-2">Shipping from:</span>{" "}
                       <span className="fs-16">
-                        {trackedProduct.Shipments[0].weight}
+                      {trackedProduct.ShippingFroms[0].CityJson.name +
+                      "," +
+                      trackedProduct.ShippingFroms[0].StateJson.name}
                       </span>{" "}
                     </li>
                     <li>
                       {" "}
-                      <span className="title-2">location:</span>{" "}
-                      <span className="fs-16"> {location.length == 0 ? trackedProduct.ShippingFroms[0].CityJson.name +','+ trackedProduct.ShippingFroms[0].StateJson.name :  lastObj[0].name}</span>{" "}
+                      <span className="title-2">shipping to:</span>{" "}
+                      <span className="fs-16">  {trackedProduct.ShippingTos[0].CityJson.name +
+                      "," +
+                      trackedProduct.ShippingTos[0].StateJson.name}</span>{" "}
                     </li>
-                    <li>
+                    {/* <li>
                       {" "}
                       <span className="title-2">shipping type:</span>{" "}
                       <span className="fs-16">
                         {trackedProduct.Shipments[0].shipping_type}
                       </span>{" "}
-                    </li>
+                    </li> */}
                   </ul>
+                <div className="prod-info white-clr">
+                  <table>
+                    <tr>
+                      <th>Message</th>
+                      <th>Location</th>
+                      <th>Date</th>
+                      <th>Time</th>
+                    </tr>
+                    {location.map(eachLocation=>{
+                      return(
+                    <tr>
+                      <td>{eachLocation.tracking_description}</td>
+                      <td>{eachLocation.name}</td>
+                      <td> {moment(eachLocation.timestamps).format("YYYY-MM-DD")}</td>
+                      <td> {moment(eachLocation.timestamps).format("h:mm:ss a")}</td>
+                    </tr>
+                      )
+                    })}
+                    
+                  </table>
                 </div>
+                <div className="btn divbtn " onClick={()=>window.print()}> Download Receipt</div>
               </div>
             </div>
           ) : (
             ""
           )}
-          {trackedProduct.location !== undefined ? (
+          {/* {trackedProduct.location !== undefined ? (
             <div className="progress-wrap">
               <div className="progress-status">
                 <span className="border-left" />
@@ -163,35 +185,45 @@ class ProductDetail extends Component {
               <div className="row progress-content upper-text">
                 <div className="col-md-3 col-xs-8 col-sm-2">
                   <p className="fs-12 no-margin"> FROM </p>
-                  <h2 className="title-1 no-margin">{trackedProduct.ShippingFroms[0].CityJson.name +','+ trackedProduct.ShippingFroms[0].StateJson.name}</h2>
+                  <h2 className="title-1 no-margin">
+                    {trackedProduct.ShippingFroms[0].CityJson.name +
+                      "," +
+                      trackedProduct.ShippingFroms[0].StateJson.name}
+                  </h2>
                 </div>
                 <div className="col-md-2 col-xs-8 col-sm-3">
                   <p className="fs-12 no-margin">
                     {" "}
-                    {/* [ <b className="black-clr">6 DAYS </b> ]{" "} */}
                   </p>
                 </div>
                 <div className="col-md-4 col-xs-8 col-sm-4 text-center">
                   <p className="fs-12 no-margin"> currently in </p>
                   <h2 className="title-1 no-margin">
-                  {location.length == 0 ? trackedProduct.ShippingFroms[0].CityJson.name +','+ trackedProduct.ShippingFroms[0].StateJson.name :  lastObj[0].name}
+                    {location.length == 0
+                      ? trackedProduct.ShippingFroms[0].CityJson.name +
+                        "," +
+                        trackedProduct.ShippingFroms[0].StateJson.name
+                      : lastObj[0].name}
                   </h2>
                 </div>
                 <div className="col-md-1 col-xs-8 col-sm-1 no-pad">
                   <p className="fs-12 no-margin">
                     {" "}
-                    {/* [ <b className="black-clr">2 DAYS </b> ]{" "} */}
                   </p>
                 </div>
                 <div className="col-md-2 col-xs-8 col-sm-2 text-right">
                   <p className="fs-12 no-margin"> to </p>
-                  <h2 className="title-1 no-margin">{trackedProduct.ShippingTos[0].CityJson.name +','+ trackedProduct.ShippingTos[0].StateJson.name}</h2>
+                  <h2 className="title-1 no-margin">
+                    {trackedProduct.ShippingTos[0].CityJson.name +
+                      "," +
+                      trackedProduct.ShippingTos[0].StateJson.name}
+                  </h2>
                 </div>
               </div>
             </div>
           ) : (
             ""
-          )}
+          )} */}
         </div>
       </section>
     );
@@ -208,7 +240,7 @@ const mapStateToProps = (state) => {
     trackingProducts,
     trackedProduct,
     trackingError,
-    location
+    location,
   };
 };
 

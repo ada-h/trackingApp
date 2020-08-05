@@ -199,7 +199,7 @@ export const updateTracking = (trackingNo, trackingDescription, location) => {
   var date = new Date();
   var timestamp = date.getTime();
   return (dispatch) => {
-    if (trackingNo == "" || location == "") {
+    if (trackingNo == "" || location == "" || trackingDescription == "") {
       dispatch({
         type: UPDATE_TRACKER_FAIL,
         payload: "*Please fill out all fields",
@@ -223,13 +223,15 @@ export const updateTracking = (trackingNo, trackingDescription, location) => {
             location:
               res.data.trackingJson.location == ""
                 ? JSON.stringify([
-                    { name: location, longitude: "", latitude: "" },
+                    { name: location, longitude: "", latitude: "", timestamps: timestamp, tracking_description: trackingDescription,},
                   ])
                 : JSON.stringify(
                     presentlocations.concat({
                       name: location,
                       longitude: "",
                       latitude: "",
+                      timestamps: timestamp,
+                      tracking_description: trackingDescription,
                     })
                   ),
             timestamps: timestamp,
