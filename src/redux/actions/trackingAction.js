@@ -195,11 +195,11 @@ export const calculatePackageCost = (height, width, depth, weight) => {
 };
 
 //Update tracking info
-export const updateTracking = (trackingNo, trackingDescription, location) => {
+export const updateTracking = (trackingNo, trackingDescription, location,estdeliveryDate, status) => {
   var date = new Date();
   var timestamp = date.getTime();
   return (dispatch) => {
-    if (trackingNo == "" || location == "" || trackingDescription == "") {
+    if (trackingNo == "" || location == "" || trackingDescription == ""||estdeliveryDate == ""||status=="") {
       dispatch({
         type: UPDATE_TRACKER_FAIL,
         payload: "*Please fill out all fields",
@@ -220,6 +220,8 @@ export const updateTracking = (trackingNo, trackingDescription, location) => {
             tracking_id: res.data.trackingJson.tracking_id,
             tracking_no: trackingNo,
             tracking_description: trackingDescription,
+            estdeliveryDate:estdeliveryDate,
+            status: status,
             location:
               res.data.trackingJson.location == ""
                 ? JSON.stringify([

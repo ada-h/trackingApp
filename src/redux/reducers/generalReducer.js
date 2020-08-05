@@ -55,6 +55,8 @@ const initialState = {
   presentlocation: "",
   locationdescription: "",
   description: "",
+  estdeliveryDate: "",
+  status: ""
 };
 
 const General = (state = initialState, action) => {

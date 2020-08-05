@@ -20,6 +20,10 @@ class index extends Component {
   }
   componentWillMount() {
     this.props.getAllTracking();
+    this.props.getFormDetails({
+      props: "status",
+      value: "onhold",
+    })
   }
   setUpdateTracking(tracking_id) {
     const tracking = this.props.allProducts.filter(p => p.tracking_id == tracking_id);
@@ -36,7 +40,7 @@ class index extends Component {
   render() {
     const { updatingPackage,
       trackingNo, presentlocation, locationdescription, calcweight,
-      updateerr, authForm, user, allProducts } = this.props
+      updateerr, authForm, user, allProducts, estdeliveryDate, status } = this.props
       console.log(allProducts)
     return (
       <div>
@@ -164,7 +168,7 @@ class index extends Component {
                       <div className="row">
                         <div className="col-md-6 text-center">
                           <img
-                            src="https://www.pngmart.com/files/11/Package-PNG-Pic.png"
+                            src="assets/img/block/Package-PNG-Pic.png"
                             alt=""
                             className="wow slideInLeft"
                             data-wow-offset={50}
@@ -284,6 +288,71 @@ class index extends Component {
                                   />{" "}
                                 </div>
                               </div>
+                              <div
+                                className="form-group wow fadeInUp"
+                                data-wow-offset={50}
+                                data-wow-delay=".20s"
+                              >
+                                <div className="col-sm-3">
+                                  {" "}
+                                  <label className="title-2">
+                                    {" "}
+                                    est delivery date:{" "}
+                                  </label>
+                                </div>
+                                <div className="col-sm-9">
+                                  {" "}
+                                  <input
+                                    data-bind="in:value, f: float"
+                                    data-name="depth"
+                                    type="date"
+                                    placeholder
+                                    className="form-control"
+                                    value={estdeliveryDate}
+                                    style={this.state.textColor}
+                                    onChange={(e) =>
+                                      this.props.getFormDetails({
+                                        props: "estdeliveryDate",
+                                        value: e.target.value,
+                                      })
+                                    }
+                                  />{" "}
+                                </div>
+                              </div>
+                              <div
+                                className="form-group wow fadeInUp"
+                                data-wow-offset={50}
+                                data-wow-delay=".20s"
+                              >
+                                <div className="col-sm-3">
+                                  {" "}
+                                  <label className="title-2">
+                                    {" "}
+                                    status:{" "}
+                                  </label>
+                                </div>
+                                <div className="col-sm-9">
+                                  {" "}
+                                  <select
+                        data-name="package"
+                        onChange={(e) =>
+                          this.props.getFormDetails({
+                            props: "status",
+                            value: e.target.value,
+                          })
+                        }
+                        className="form-control"
+                        title="select your package"
+                      >
+                        <option value={"onhold"}>On Hold</option>
+                        <option value={"on-transit"}>On Transit</option>
+                        <option value={"delivered"}>Delivered</option>
+                      </select>
+                                 {" "}
+                                </div>
+                              </div>
+
+
                               <p className='error'> {updateerr}</p>
                               <div
                                 className="form-group wow fadeInUp"
@@ -303,7 +372,7 @@ class index extends Component {
                                           this.props.updateTracking(
                                             trackingNo,
                                             locationdescription,
-                                            presentlocation,
+                                            presentlocation,estdeliveryDate, status
                                           )
                                         }
                                       >
@@ -361,7 +430,7 @@ class index extends Component {
 
 const mapStateToProps = (state) => {
   const { updatingPackage } = state.Loader
-  const { trackingNo, presentlocation, locationdescription, authForm, calcweight } = state.General
+  const { trackingNo, presentlocation, locationdescription, estdeliveryDate, status,authForm, calcweight } = state.General
   const { updateerr, allProducts } = state.Tracking
   const { user } = state.Auth
   console.log(state.General)
@@ -369,7 +438,7 @@ const mapStateToProps = (state) => {
     updatingPackage,
     trackingNo, presentlocation,
     locationdescription, calcweight,
-    updateerr, authForm, user, allProducts
+    updateerr, authForm, user, allProducts, estdeliveryDate, status
   };
 };
 

@@ -219,7 +219,7 @@ class CalculateCost extends Component {
                           >
                             {calculatedPrice == 0
                               ? "Go"
-                              : "₦" + numberWithCommas(calculatedPrice)}
+                              : "$" + numberWithCommas(calculatedPrice)}
                             {/* <span className="pr-sign">-&nbsp;</span> 
                           <span className="pr-wrap" style={{ display: "none" }}>
                     <span className="pr"></span>
