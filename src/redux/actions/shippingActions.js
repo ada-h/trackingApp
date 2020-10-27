@@ -31,6 +31,13 @@ export const createshipping = (
     goodsType: goodsType,
     additional_info: "string",
   };
+  console.log(shipmentName,
+    shipmentType,
+    goodsType,
+    width,
+    length,
+    weight,
+    containerNo)
   return (dispatch) => {
     dispatch({
       type: CREATING_SHIPMENT,
@@ -58,7 +65,7 @@ export const createshipping = (
         });
         dispatch({
           type: SHIPMENT_CREATION_ERR,
-          payload: err.response.data.error.message,
+          payload: 'unable to save shipment',
         });
       });
   };

@@ -75,7 +75,7 @@ class ProductDetail extends Component {
               >
                 <img
                   alt=""
-                  src="https://www.pngmart.com/files/11/Package-PNG-Pic.png"
+                  src="assets/img/block/Package-PNG-Pic.png"
                 />
                                
               </div>
@@ -122,6 +122,16 @@ class ProductDetail extends Component {
                       <span className="fs-16">  {trackedProduct.ShippingTos[0].CityJson.name +
                       "," +
                       trackedProduct.ShippingTos[0].StateJson.name}</span>{" "}
+                    </li>
+                    <li>
+                      {" "}
+                      <span className="title-2">est delivery date:</span>{" "}
+                      <span className="fs-16">  {trackedProduct.estdeliveryDate}</span>{" "}
+                    </li>
+                    <li>
+                      {" "}
+                      <span className="title-2">status:</span>{" "}
+                      <span className="fs-16">  {trackedProduct.status === 'onhold'? 'On Hold':trackedProduct.status === 'on-transit'?'On Transit': 'Delivered'}</span>{" "}
                     </li>
                     {/* <li>
                       {" "}
